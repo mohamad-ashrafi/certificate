@@ -2,6 +2,17 @@
     include_once 'dbConfig.php';
     global $conn;
     global $connection;
+
+    $sql = "CREATE TABLE IF NOT EXISTS certificate (
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            phone VARCHAR(255) NOT NULL,
+            issued_date DATE NULL
+        )";
+    if ($conn->query($sql) === TRUE) {
+        //echo "Table 'certificate' created successfully"; // Optional: Display a success message
+    } else {
+        echo "Error creating table: " . $conn->error; // Optional: Display an error message if applicable
+    }
 ?>
 <html>
 <head>
@@ -12,12 +23,16 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
     <script src="js/main.js"></script>
     <link  type="text/css" href="css/style.css">
-    <title>دریافت گواهینامه پایان دوره - خانه سرمایه</title>
+    <title>دریافت گواهینامه پایان دوره</title>
 </head>
 <body>
 <div class="container formbox" style="direction: rtl;text-align: right;margin-top: 30px;">
     <a href="https://khanesarmaye.com"><img src="https://khanesarmaye.com/wp-content/uploads/2021/01/Logo-RGB-B2600.png"></a><br>
-    <span class="formdes">قابل توجه دانشجویان گرامی<br>مدرک اصلی دوره(مدرک تحلیلگری بازار بین المللی سازمان فنی حرفه ای) پس از شرکت در آزمون و قبولی قابل دریافت می باشد(زمان شرکت در آزمون متعاقبا در کانال دوره اطلاع رسانی خواهد شد)</span>
+    <span class="formdes">قابل توجه دانشجویان گرامی<br>
+        مدرک اصلی دوره(مدرک تحلیلگری بازار بین المللی سازمان فنی حرفه ای)
+        پس از شرکت در آزمون و قبولی قابل دریافت می باشد
+        <br>
+        (زمان شرکت در آزمون متعاقبا در کانال دوره اطلاع رسانی خواهد شد)</span>
     <form action="index.php" method="post" style="max-width:50%;text-align: right;" class="getgormhn">
         <div class="form-group">
             <label id="name">نام و نام خانوادگی</label>

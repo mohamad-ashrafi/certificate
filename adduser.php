@@ -16,6 +16,18 @@ global $connection; ?>
         try {
             if(isset($_POST['adduserbut'])){
                 $phone = $_POST['adduser'];
+                $checkQuery = $connection->prepare('SELECT * FROM certificate WHERE phone = :phone');
+                $checkQuery->bindParam(':phone', $phone);
+                $checkQuery->execute();
+                $count = $checkQuery->rowCount();
+                if ($count == 0) {
+                    'CREATE TABLE certificate (
+                        id INT AUTO_INCREMENT PRIMARY KEY,
+                        phone VARCHAR(15) UNIQUE
+                    ); ';
+                } else {
+                    // اطلاعات مورد نظر قبلاً وجود دارد، بنابراین عملیات اضافه کردن رکورد متوقف می‌شود
+                }
                 $already_exists = false;
                 $insertData = $connection->prepare('INSERT INTO certificate (phone) values (:phone)');
                 $insertData->bindParam(':phone' , $phone);
@@ -33,9 +45,9 @@ global $connection; ?>
         }
     ?>
     <div class="adduser" style="direction: rtl;text-align: right;">
-        <a href="https://khanesarmaye.com" style="width: 100%;float: right;"><img src="https://khanesarmaye.com/wp-content/uploads/2021/01/Logo-RGB-B2600.png" style="float:right; width: 30%;margin: 25px 35% 50px 35%;"></a><br>
-        <h3 style="margin: 20px 0;">افزودن شماره تماس دانشجو به لیست دانشجویان واجد شرایط دریافت مدرک خانه سرمایه</h3>
-        <form  action="https://khanesarmaye.com/certificate/adduser.php" method="post" style="max-width:50%;text-align: right;" class="getgormhn">
+        <a href="" style="width: 100%;float: right;"><img src="" style="float:right; width: 30%;margin: 25px 35% 50px 35%;"></a><br>
+        <h3 style="margin: 20px 0;">افزودن شماره تماس دانشجو به لیست دانشجویان واجد شرایط دریافت مدرک </h3>
+        <form  action="http://localhost:8000/adduser.php" method="post" style="max-width:50%;text-align: right;" class="getgormhn">
             <div class="form-group">
                 <label style="font-size: 14px;">شماره دانشجوی مورد نظر را وارد کنید</label>
                 <input type="text" name="adduser" class="form-control" style="font-size: 14px;">
@@ -47,19 +59,17 @@ global $connection; ?>
 </body>
     <script>
         function loadpage(){
-
             if(!localStorage["alertdisplayed"]) {
                 alert("Your text")
                 localStorage["alertdisplayed"] = true
             }
-
-            var password = prompt("رمز شب!");
+            var password = prompt("کلمه عبور!");
 
             if (password.valueOf() == "123456"){
-                window,alert("درسته! با موفقیت وارد شدی")
+                window,alert("! با موفقیت وارد شدی")
             }else {
                 while(password.value !="123456") {
-                    window,alert("اشتباه میزنی! دوباره تلاش کن")
+                    window,alert("خطا مجدد تلاش کنید")
                     var password = prompt("Please Inser the Password...");
                 }
             }
