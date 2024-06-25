@@ -1,2 +1,2 @@
 # certificate
-Provide certification
+wordpress plugin for give custom certificate
